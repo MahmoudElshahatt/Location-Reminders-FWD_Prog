@@ -1,9 +1,13 @@
 package com.udacity.project4.locationreminders.reminderslist
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.udacity.project4.R
+import com.udacity.project4.authentication.AuthenticationActivity
 import com.udacity.project4.base.BaseFragment
 import com.udacity.project4.base.NavigationCommand
 import com.udacity.project4.databinding.FragmentRemindersBinding
@@ -71,7 +75,8 @@ class ReminderListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> {
-//                TODO: add the logout implementation
+                //i did the logout logic in this function
+                logoutAction()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -84,4 +89,20 @@ class ReminderListFragment : BaseFragment() {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
+    private fun logoutAction() {
+        val sharedPref =
+            activity?.getSharedPreferences(
+                getString(R.string.login_preferences),
+                Context.MODE_PRIVATE
+            )
+        with(sharedPref!!.edit()) {
+            putBoolean(getString(R.string.login_state), false)
+            apply()
+        }
+
+        val logOut = Intent(activity, AuthenticationActivity::class.java)
+        logOut.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(logOut)
+        requireActivity().finish()
+    }
 }

@@ -4,8 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/activity_authentication.xml" value="0.259375" />
-        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/activity_reminder_description.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/activity_reminder_description.xml" value="0.25" />
+        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/activity_reminders.xml" value="0.24003623188405798" />
+        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/fragment_reminders.xml" value="0.12613981762917933" />
+        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/fragment_save_reminder.xml" value="0.259375" />
         <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/layout/fragment_select_location.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/Bg/AndroidStudioProjects/Location Reminder/starter/app/src/main/res/menu/main_menu.xml" value="0.259375" />
       </map>
     </option>
   </component>

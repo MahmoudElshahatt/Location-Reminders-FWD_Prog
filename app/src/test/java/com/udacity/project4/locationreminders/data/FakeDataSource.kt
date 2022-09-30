@@ -5,23 +5,51 @@ import com.udacity.project4.locationreminders.data.dto.Result
 
 //Use FakeDataSource that acts as a test double to the LocalDataSource
 class FakeDataSource : ReminderDataSource {
+    //MAKING A VARIABLE TO SIMULATE ERRORS
+    var returnError: Boolean = false
 
-//    TODO: Create a fake data source to act as a double to the real data source
+    //MAKING MY FAKE DATA
+    val remindersList = mutableListOf<ReminderDTO>()
 
+    //SIMULATE GETTING REMINDERS WHEN ERROR OR SUCCESS
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
-        TODO("Return the reminders")
+        return try {
+            if (returnError) {
+                throw Exception("Reminders not found")
+            } else {
+                //SAVING THE DATA SUCCESSFULLY
+                Result.Success(ArrayList(remindersList))
+            }
+        } catch (ex: Exception) {
+            Result.Error(ex.localizedMessage)
+        }
+
     }
 
+    //SIMULATING SAVING THE FAKE DATA
     override suspend fun saveReminder(reminder: ReminderDTO) {
-        TODO("save the reminder")
+        remindersList.add(reminder)
     }
 
+    //SIMULATING GETTING THE FAKE DATA
     override suspend fun getReminder(id: String): Result<ReminderDTO> {
-        TODO("return the reminder with the id")
+        return try {
+            val reminder = remindersList.find { id == it.id }
+            if (returnError || reminder == null) {
+                //IF REMINDER IS NOT FOUND OR I TRIGGERED RETURN ERROR VARIABLE THROW EXCEPTION
+                throw Exception("Not found reminder: $id")
+            } else {
+                //IF REMINDER IS FOUND ADD IT TO THE RESULT.SUCCESS
+                Result.Success(reminder)
+            }
+        } catch (ex: Exception) {
+            Result.Error(ex.localizedMessage)
+        }
     }
 
+    //SIMULATING DELETING THE FAKE DATA
     override suspend fun deleteAllReminders() {
-        TODO("delete all the reminders")
+        remindersList.clear()
     }
 
 

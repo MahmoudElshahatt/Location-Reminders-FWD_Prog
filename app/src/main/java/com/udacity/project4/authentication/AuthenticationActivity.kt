@@ -1,6 +1,7 @@
 package com.udacity.project4.authentication
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,13 +19,27 @@ import com.udacity.project4.utils.Constants
  * signed in users to the RemindersActivity.
  */
 class AuthenticationActivity : AppCompatActivity() {
+    //I made a SharedPreferences to save the login state.
+    val sharedPref by lazy {
+        getSharedPreferences(getString(R.string.login_preferences), Context.MODE_PRIVATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
         val loginButton = findViewById<Button>(R.id.login_button)
 
+        if (sharedPref.getBoolean(getString(R.string.login_state), false)) {
+            val intent = Intent(this, RemindersActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         loginButton.setOnClickListener {
+            with(sharedPref.edit()) {
+                putBoolean(getString(R.string.login_state), false)
+                apply()
+            }
             Login()
         }
 
@@ -67,6 +82,10 @@ class AuthenticationActivity : AppCompatActivity() {
     }
 
     private fun LoginIsDone() {
+        with(sharedPref.edit()) {
+            putBoolean(getString(R.string.login_state), true)
+            apply()
+        }
         val intent = Intent(this, RemindersActivity::class.java)
         startActivity(intent)
         finish()
