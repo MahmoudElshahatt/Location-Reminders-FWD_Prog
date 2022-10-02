@@ -28,6 +28,7 @@ class RemindersListViewModelTest {
     @get:Rule
     var coroutineRule = MainCoroutineRule()
 
+
     //DECLARING SOME VARIABLES LIKE FAKEDATA CLASS AND THE VIEWMODEL TO BE TESTED
     private lateinit var fakeReminders: FakeDataSource
     private lateinit var remindersViewModel: RemindersListViewModel
@@ -57,7 +58,7 @@ class RemindersListViewModelTest {
         remindersViewModel.loadReminders()
         //EQUALING THE VALUE OF THE SNACKBAR WITH ERROR MESSAGE
         MatcherAssert.assertThat(
-            remindersViewModel.showSnackBar.value, CoreMatchers.`is`("Reminders not found")
+            remindersViewModel.showSnackBar.value, CoreMatchers.`is`("Reminders are unable to get retrieved")
         )
     }
 
@@ -72,6 +73,9 @@ class RemindersListViewModelTest {
         remindersViewModel.loadReminders()
         //HERE I AM CHECKING THAT VARIABLE SHOWLOADING THAT IS HAS VALUE TRUE AFTER THE LOADING IS SUCCESSFUL
         MatcherAssert.assertThat(remindersViewModel.showLoading.value, CoreMatchers.`is`(true))
+        //AFTER RESUMING DISPATCHER SHOWLOADING SHOULD EQUAL FALSE
+        coroutineRule.resumeDispatcher()
+        MatcherAssert.assertThat(remindersViewModel.showLoading.value, CoreMatchers.`is`(false))
     }
 
     //SIMPLE UNCTION TO SAVE A REMINDER IN THE FAKEREMINDERS DATA SET

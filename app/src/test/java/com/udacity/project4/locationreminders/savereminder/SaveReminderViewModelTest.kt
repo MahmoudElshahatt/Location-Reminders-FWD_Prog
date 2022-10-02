@@ -1,6 +1,7 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.udacity.project4.locationreminders.MainCoroutineRule
@@ -26,6 +27,8 @@ class SaveReminderViewModelTest {
     //TRYING TO EXECUTE EACH TASK INDEPENDENTLY USING Architecture Components.
     @get:Rule
     var coroutineRule = MainCoroutineRule()
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
     //DECLARING SOME VARIABLES LIKE FAKEDATA CLASS AND THE VIEWMODEL TO BE TESTED
     private lateinit var fakeReminders: FakeDataSource
@@ -78,13 +81,16 @@ class SaveReminderViewModelTest {
 
     //
     @Test
-    fun loadingDataItemTest() {
+    fun loadingDataItemTest()= runBlockingTest {
         //MAKING SURE THAT THIS TASK IS RUNNING INDEPENDENTLY OF THE OTHER TEST
         coroutineRule.pauseDispatcher()
         //SAVING A REMINDER DATA ITEM
         saveReminderViewModel.saveReminder(createFakeDataItem())
         //MAKING SURE THAT LOADING AND SAVING IS DONE SUCCESSFULLY
         MatcherAssert.assertThat(saveReminderViewModel.showLoading.value, CoreMatchers.`is`(true))
+
+        coroutineRule.resumeDispatcher()
+        MatcherAssert.assertThat(saveReminderViewModel.showLoading.value, CoreMatchers.`is`(false))
 
     }
 }

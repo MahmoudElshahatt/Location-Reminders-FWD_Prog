@@ -15,7 +15,8 @@ class FakeDataSource : ReminderDataSource {
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
         return try {
             if (returnError) {
-                throw Exception("Reminders not found")
+                //IF THERE IS NO REMINDERS FOUND
+                throw Exception("Reminders are unable to get retrieved")
             } else {
                 //SAVING THE DATA SUCCESSFULLY
                 Result.Success(ArrayList(remindersList))
