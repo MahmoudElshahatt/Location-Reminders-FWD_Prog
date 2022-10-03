@@ -1,11 +1,13 @@
 package com.udacity.project4.locationreminders.savereminder
 
 import android.Manifest
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,8 +37,8 @@ class SaveReminderFragment : BaseFragment() {
     private var permissions: Boolean = false
     private lateinit var reminderDataItem: ReminderDataItem
     private lateinit var geofencing: GeofencingClient
-    private val runningQOrLaterCheck = android.os.Build.VERSION.SDK_INT >=
-            android.os.Build.VERSION_CODES.Q
+    private val runningQOrLaterCheck = Build.VERSION.SDK_INT >=
+            Build.VERSION_CODES.Q
 
     //Get the view model this time as a single to be shared with the another fragment
     override val _viewModel: SaveReminderViewModel by inject()
@@ -59,7 +61,7 @@ class SaveReminderFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_save_reminder, container, false)
+            DataBindingUtil.inflate(inflater,R.layout.fragment_save_reminder, container, false)
 
         setDisplayHomeAsUpEnabled(true)
 
@@ -231,6 +233,14 @@ class SaveReminderFragment : BaseFragment() {
             .addGeofence(myGeofence)
             .build()
 
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            return
+        }
         geofencing.addGeofences(geofenceRequest, geofencePendingIntent)?.run {
             addOnSuccessListener {
                 _viewModel.validateAndSaveReminder(reminderDataItem)
