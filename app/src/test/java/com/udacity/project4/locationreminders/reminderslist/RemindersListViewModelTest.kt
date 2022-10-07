@@ -49,7 +49,7 @@ class RemindersListViewModelTest {
         stopKoin()
     }
 
-    //SIMULATING THE ERROR TO RETURN THE EXCEPTION ("Reminders not found")
+    //SIMULATING THE ERROR TO RETURN THE EXCEPTION ("Reminders are unable to get retrieved")
     @Test
     fun returningErrorTest() = runBlockingTest {
         saveFakeReminderData()

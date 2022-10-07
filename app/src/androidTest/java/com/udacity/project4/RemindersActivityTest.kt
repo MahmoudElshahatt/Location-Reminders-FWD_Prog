@@ -147,7 +147,9 @@ class RemindersActivityTest :
                 CoreMatchers.not(CoreMatchers.`is`(activity.window.decorView))
             )
         )
-       //Here the Toast is displayed already but it gives me failed test on Realme RMX1851 phone
+
+            //Here the Toast is displayed already but it gives me a failed test on Realme RMX1851 phone
+            //but the test is working just fine.
             .check(
                 ViewAssertions.matches(
                     // toast is displayed
@@ -168,7 +170,8 @@ class RemindersActivityTest :
         }
         return activity
     }
-   //HERE I AM TESTING THE SNACK BAR SHOWING ERROR please enter data
+
+    //HERE I AM TESTING THE SNACK BAR SHOWING ERROR please enter data
     @Test
     fun errorEnterTitleSnackBarTest() {
         // LAUNCHING RemindersActivity
