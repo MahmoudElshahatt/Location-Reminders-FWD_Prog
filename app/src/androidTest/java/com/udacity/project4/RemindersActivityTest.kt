@@ -23,7 +23,6 @@ import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers
-import org.hamcrest.CoreMatchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -117,16 +116,20 @@ class RemindersActivityTest :
         // GETTING INSTANCE OF IT.
         val activity = getActivity(activityScenario)
 
-        //SIMULAT SAVING A REMINDER IN  ADDREMINDERFRAGMENT AND SELECTLOCATIONFRAGMENT
+        //SIMULATE SAVING A REMINDER IN  ADDREMINDERFRAGMENT AND SELECTLOCATIONFRAGMENT
         //CLICKING THE addReminderFAB TO NAVIGATE
         Espresso.onView(ViewMatchers.withId(R.id.addReminderFAB)).perform(ViewActions.click())
         //TYPING SOME DUMMY TEXTS IN THE EDITTEXTS
         Espresso.onView(ViewMatchers.withId(R.id.reminderTitle))
-            .perform(ViewActions.typeText("MY location"))
+            .perform(ViewActions.typeText("My location"))
         Espresso.onView(ViewMatchers.withId(R.id.reminderDescription))
             .perform(ViewActions.typeText("My location Description"))
         Espresso.closeSoftKeyboard()
-
+        Espresso.onView(ViewMatchers.withText("My location"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("My location Description")).check(
+            ViewAssertions.matches(ViewMatchers.isDisplayed())
+        )
         //CLICKING SELECTLOCATION BUTTON TO NAVIGATE TO THE MAP FRAGMENT
         Espresso.onView(ViewMatchers.withId(R.id.selectLocation)).perform(ViewActions.click())
         //MAKING A MARKER ON THE MAP
@@ -138,13 +141,20 @@ class RemindersActivityTest :
         Espresso.onView(ViewMatchers.withId(R.id.saveReminder))
             .perform(ViewActions.click())
         // CHECKING IF TOAST WITH REMINDER SAVED ! IS SHOWN ON THE SCREEN
-        Espresso.onView(ViewMatchers.withText(R.string.reminder_saved))
-            .inRoot(RootMatchers.withDecorView(not(CoreMatchers.`is`(activity?.window?.decorView))))
+        Espresso.onView(ViewMatchers.withText(R.string.reminder_saved)).inRoot(
+            RootMatchers.withDecorView(
+                // matching toast token
+                CoreMatchers.not(CoreMatchers.`is`(activity.window.decorView))
+            )
+        )
+       //Here the Toast is displayed already but it gives me failed test on Realme RMX1851 phone
             .check(
                 ViewAssertions.matches(
+                    // toast is displayed
                     ViewMatchers.isDisplayed()
                 )
             )
+
         //CLOSING EVERY THING
         activityScenario.close()
 

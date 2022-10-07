@@ -37,8 +37,8 @@ class FakeDataSource : ReminderDataSource {
         return try {
             val reminder = remindersList.find { id == it.id }
             if (returnError || reminder == null) {
-                //IF REMINDER IS NOT FOUND OR I TRIGGERED RETURN ERROR VARIABLE THROW EXCEPTION
-                throw Exception("Not found reminder: $id")
+                //IF REMINDER IS NOT FOUND OR I TRIGGERED RETURN ERROR VARIABLE RETURN RESULT WITH A ERROR MESSAGE
+                Result.Error("Reminder not found!")
             } else {
                 //IF REMINDER IS FOUND ADD IT TO THE RESULT.SUCCESS
                 Result.Success(reminder)

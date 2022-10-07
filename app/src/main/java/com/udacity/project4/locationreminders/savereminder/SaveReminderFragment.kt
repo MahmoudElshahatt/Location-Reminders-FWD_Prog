@@ -61,7 +61,7 @@ class SaveReminderFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater,R.layout.fragment_save_reminder, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_save_reminder, container, false)
 
         setDisplayHomeAsUpEnabled(true)
 
@@ -176,7 +176,7 @@ class SaveReminderFragment : BaseFragment() {
 
     }
 
-    private fun checkDeviceLocationAndstartGeofence(resolve:Boolean = true) {
+    private fun checkDeviceLocationAndstartGeofence(resolve: Boolean = true) {
         val locationRequest = LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_LOW_POWER
         }
