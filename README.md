@@ -5,8 +5,9 @@ The Location Reminder is the 4th project in Udacity FWD program.
 # Screenshots
 
 # Tech stack
-* **Motion Layout**.
-* **CustomView**.
-* **BroadcastReceiver**.
+* **Google Map**.
+* **Unit Test**.
+* **Instrumented Test**.
+* **MVVM Architecture**.
 * **Notification Manager**.
-* **Canvas**.
+
