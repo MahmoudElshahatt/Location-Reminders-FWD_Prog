@@ -10,11 +10,13 @@ The Location Reminder is the 4th project in Udacity FWD program.
 <img src="https://user-images.githubusercontent.com/79477855/195313747-5f9afb0f-b108-4d02-baf5-4ccae68fbc93.jpeg" width="350" height="700"> <img src="https://user-images.githubusercontent.com/79477855/195313777-5cef7166-f782-42f2-b7d3-d64686b53097.jpeg" width="350" height="700"> 
 
 # Tech stack
+* **100% Kotlin**.
+* **MVVM Architecture**.
+* **Notification Manager**.
 * **FireBase Auth**.
 * **Google Map**.
 * **Unit Test**.
 * **Instrumented Test**.
-* **MVVM Architecture**.
-* **Notification Manager**.
+
 
 
